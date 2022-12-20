@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	yaccparser "github.com/alienvspredator/brainfuck-yacc/pkg/brainfuck/parser/yacc"
+	"github.com/alienvspredator/brainfuck-yacc/pkg/brainfuck/parser"
 	"github.com/alienvspredator/brainfuck-yacc/pkg/brainfuck/runtime"
 )
 
@@ -34,7 +34,12 @@ func main() {
 			log.Fatalf("ReadBytes: %s", err)
 		}
 
-		prog := yaccparser.Parse(line)
+		prog, err := parser.ParseProgram(line)
+		if err != nil {
+			log.Printf("faield to parse the input: %s\n", err)
+			continue
+		}
+
 		runner := runtime.NewRunner()
 
 		var buf bytes.Buffer

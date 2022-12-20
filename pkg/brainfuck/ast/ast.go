@@ -127,3 +127,15 @@ func (x *Body) End() token.Pos {
 
 	return x.Body + 1
 }
+
+type BadNode struct {
+	From, To token.Pos
+}
+
+func (x *BadNode) Pos() token.Pos {
+	return x.From
+}
+
+func (x *BadNode) End() token.Pos {
+	return x.To
+}
